@@ -1,0 +1,39 @@
+package com.cg.hcsAdmin.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cg.hcsAdmin.dto.DiagnosticCenter;
+import com.cg.hcsAdmin.service.CenterService;
+
+@RestController
+public class CenterController 
+{
+	@Autowired
+	CenterService centerService;
+	public void getCenterService(CenterService centerService)
+	{
+		this.centerService = centerService;
+	}
+	
+	@DeleteMapping("/deleteCenter/{centerId}")
+	public String deleteBook(@PathVariable int centerId)
+	{
+	   return centerService.deleteCenter(centerId); 
+	}
+	
+	@PostMapping(value="/addCenter",consumes="application/json")
+    public ResponseEntity<String> insertBook(@RequestBody()DiagnosticCenter center)
+	{
+		String message="Center Inserted Successfully";
+		if(centerService.addCenter(center)==null)
+			message="Center Insertion Failed";
+		return new ResponseEntity<String>(message,HttpStatus.BAD_REQUEST);
+	 }
+}

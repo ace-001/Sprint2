@@ -1,0 +1,12 @@
+package com.cg.hcsAdmin.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.cg.hcsAdmin.dto.DiagnosticCenter;
+
+@Repository
+public interface CenterDao extends JpaRepository<DiagnosticCenter, Integer> 
+{
+
+}
