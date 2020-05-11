@@ -35,29 +35,29 @@ public class TestCenterController
 	}
 	
 	@PostMapping(value="/addTestCenter",consumes="application/json")
-	   public ResponseEntity<String> insertTestCenter(@RequestBody()TestCenter testCenter)
-	   {
+	public ResponseEntity<String> insertTestCenter(@RequestBody()TestCenter testCenter)
+	{
 		String message;
 		try
 		{
-		   message="Test Inserted Successfully";
-		   if(testCenterService.addTestCenter(testCenter)==null)
-			   message="Test Insertion Failed";
-		   return new ResponseEntity<String>(message,HttpStatus.BAD_REQUEST);
-	   }
+			message="Test Inserted Successfully";
+			if(testCenterService.addTestCenter(testCenter)==null)
+				message="Test Insertion Failed";
+			return new ResponseEntity<String>(message,HttpStatus.BAD_REQUEST);
+		}
 		catch(Exception ex)
 		{
-			 return new ResponseEntity<String>(ex.getMessage()+" Insertion Failed",HttpStatus.BAD_REQUEST);	
+			return new ResponseEntity<String>(ex.getMessage()+" Insertion Failed",HttpStatus.BAD_REQUEST);	
 		}
-	   }
+	}
 	
-	@GetMapping(value="/getTestCenter/{centerId}",produces="application/json")
-	   public ResponseEntity<Optional<List<TestCenter>>> getTestCenterDetails(@PathVariable int centerId)
-	   {
-	 	  Optional<List<TestCenter>> testCenter =  testCenterService.getTestCenter(centerId);
-	 	  if(testCenter.isPresent())
-	 		  return new ResponseEntity<Optional<List<TestCenter>>>(testCenter,HttpStatus.OK);
-	 	  return new ResponseEntity<Optional<List<TestCenter>>>(testCenter,HttpStatus.NOT_FOUND);
-	   }
+	@GetMapping(value="/getTestCenters/{centerId}",produces="application/json")
+	public ResponseEntity<Optional<List<Integer>>> getTestCenterDetails(@PathVariable int centerId)
+	{
+		Optional<List<Integer>> testCenter =  testCenterService.getTestCenter(centerId);
+		if(testCenter.isPresent())
+			return new ResponseEntity<Optional<List<Integer>>>(testCenter,HttpStatus.OK);
+		return new ResponseEntity<Optional<List<Integer>>>(testCenter,HttpStatus.NOT_FOUND);
+	}
 
 }

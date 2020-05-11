@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cg.hcs.dao.DoctorDAO;
 import com.cg.hcs.dto.Doctor;
 
-
 @Service
 public class DoctorService 
 {
@@ -38,10 +37,14 @@ public class DoctorService
     {
     	return dodao.findAll();
     }
+    @Transactional(readOnly=true)
+    public Optional<Integer> getDoctorByCenterIdAndTestId(int centerId,int testId)
+    {
+    	return dodao.getDoctorByCenterIdTestId(testId, centerId);
+    }
+    @Transactional(readOnly=true)
+    public Optional<Doctor> getDoctorUserId(String userId)
+    {
+    	return dodao.getDoctorByUser(userId);
+    }
  }
-
-
-
-    
-
-

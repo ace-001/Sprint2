@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.hcs.dao.DiagnosticcenterDAO;
-import com.cg.hcs.dto.Diagnosticcenter;
+import com.cg.hcs.dto.DiagnosticCenter;
 
 @Service
 public class DiagnosticcenterService 
@@ -17,7 +17,7 @@ public class DiagnosticcenterService
     DiagnosticcenterDAO ddao;
     public void setDdao( DiagnosticcenterDAO ddao) { this.ddao=ddao;}
     @Transactional
-    public Diagnosticcenter insertDiagnosticcenter( Diagnosticcenter  diagnosticcenter)
+    public DiagnosticCenter insertDiagnosticcenter( DiagnosticCenter  diagnosticcenter)
     {
         return ddao.save( diagnosticcenter);
     }
@@ -29,12 +29,12 @@ public class DiagnosticcenterService
     	return "center Deleted";
     }
     @Transactional(readOnly=true)
-    public List<Diagnosticcenter> getDiagnosticcenters()
+    public List<DiagnosticCenter> getDiagnosticcenters()
     {
     	return ddao.findAll();
     }
     @Transactional(readOnly=true)
-    public Optional<Diagnosticcenter> getDiagnosticcenter(int centerId)
+    public Optional<DiagnosticCenter> getDiagnosticcenter(int centerId)
     {
     	return ddao.findById(centerId);
     }

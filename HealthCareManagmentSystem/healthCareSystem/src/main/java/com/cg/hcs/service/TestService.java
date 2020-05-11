@@ -1,5 +1,6 @@
 package com.cg.hcs.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,4 +43,15 @@ public class TestService
 	    {
 	    	return tdao.findById(testId);
 	    }
+	 
+	 @Transactional(readOnly=true)
+	 public List<Test> getTestById(int testIds[])
+	 {	 
+		List<Test> results = new ArrayList<Test>();
+ 			for (int id : testIds) 
+ 			{
+ 				tdao.findById(id).ifPresent(results::add);
+ 			}
+ 		return results;
+	} 
 }

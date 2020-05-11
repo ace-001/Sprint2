@@ -37,5 +37,9 @@ public class PatientService
     {
     	return pdao.findAll();
     }
-
+    @Transactional(readOnly=true)
+    public Optional<Patient> getPatient(String userId)
+    {
+    	return pdao.getPatientByUserId(userId);
+    }    
 }

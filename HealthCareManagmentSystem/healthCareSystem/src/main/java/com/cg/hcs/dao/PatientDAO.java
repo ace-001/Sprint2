@@ -1,14 +1,15 @@
 package com.cg.hcs.dao;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import com.cg.hcs.dto.Doctor;
 import com.cg.hcs.dto.Patient;
-import com.cg.hcs.dto.Users;
 
 public interface PatientDAO extends JpaRepository<Patient, Integer>
 {
-	@Query("select p from Patient p where p.user=:user")
-	public Doctor getPatientByUser(Users user); 
+	@Query("select p from Patient p where p.user.userId=:userId")
+	public Optional<Patient> getPatientByUserId(@Param("userId")String userId); 
 }

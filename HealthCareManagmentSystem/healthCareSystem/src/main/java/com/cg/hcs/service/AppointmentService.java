@@ -1,6 +1,8 @@
 package com.cg.hcs.service;
 
 import java.time.LocalDate;
+import java.util.List;
+//import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.hcs.dao.AppointmentDAO;
 import com.cg.hcs.dto.Appointment;
-import com.cg.hcs.dto.Diagnosticcenter;
+//import com.cg.hcs.dto.Doctor;
 
 @Service
 public class AppointmentService {
@@ -25,7 +27,7 @@ public class AppointmentService {
         return adao.save(appointment);
     }
     @Transactional(readOnly = true)
-    public Appointment getAppointmentByCenterIdAndAppointmentDate(Diagnosticcenter centerId,LocalDate appointmentDate)
+    public Appointment getAppointmentByCenterIdAndAppointmentDate(int centerId,LocalDate appointmentDate)
     {
     	return adao.getAppointmentByCenterIdAndAppointmentDate(centerId,appointmentDate);
     }
@@ -34,6 +36,18 @@ public class AppointmentService {
     {
     	return adao.findById(appointmentId);
     }
+	public Optional<List<Appointment>> getAppointmentByDocId(int doctorId) 
+	{
+		return adao.getAppointmentsByDocId(doctorId);
+	}
+	public Optional<List<Appointment>> getAppointmentByPatientId(int patientId) 
+	{
+		return adao.getAppointmentsByPatientId(patientId);
+	}
+    
+	/*
+	 * @Transactional(readOnly=true) public Optional<List<Appointment>>
+	 * getAppointmentByDoctorId(Doctor doctor) { return
+	 * adao.getAppointmentsByDoctorId(doctor); }
+	 */
  }
-
-

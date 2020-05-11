@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.hcs.dto.Diagnosticcenter;
+import com.cg.hcs.dto.DiagnosticCenter;
 import com.cg.hcs.service.DiagnosticcenterService;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -29,7 +29,7 @@ public class DiagnosticcenterController
 	
 
    @PostMapping(value="/addDiagnosticcenter",consumes="application/json")
-   public ResponseEntity<String> insertDiagnosticcenter(@RequestBody()Diagnosticcenter diagnosticcenter)
+   public ResponseEntity<String> insertDiagnosticcenter(@RequestBody()DiagnosticCenter diagnosticcenter)
    {
 	   try
 	   {
@@ -52,19 +52,19 @@ public class DiagnosticcenterController
 	   return diagnosticcenterService.deleteDiagnosticcenter(centerId); 
    }
    @GetMapping("/getDiagnosticcenters")
-   public List<Diagnosticcenter> getDiagnosticcenters()
+   public List<DiagnosticCenter> getDiagnosticcenters()
    {
 	   return diagnosticcenterService.getDiagnosticcenters();
    }
    
    
    @GetMapping(value="/getDiagnosticcenter/{centerId}",produces="application/json")
-   public ResponseEntity<Optional<Diagnosticcenter>> getDiagnosticcenterDetails(@PathVariable int centerId)
+   public ResponseEntity<Optional<DiagnosticCenter>> getDiagnosticcenterDetails(@PathVariable int centerId)
    {
- 	  Optional<Diagnosticcenter> diagnosticcenter =  diagnosticcenterService.getDiagnosticcenter(centerId);
+ 	  Optional<DiagnosticCenter> diagnosticcenter =  diagnosticcenterService.getDiagnosticcenter(centerId);
  	  if(diagnosticcenter.isPresent())
- 		  return new ResponseEntity<Optional<Diagnosticcenter>>(diagnosticcenter,HttpStatus.OK);
- 	  return new ResponseEntity<Optional<Diagnosticcenter>>(diagnosticcenter,HttpStatus.NOT_FOUND);
+ 		  return new ResponseEntity<Optional<DiagnosticCenter>>(diagnosticcenter,HttpStatus.OK);
+ 	  return new ResponseEntity<Optional<DiagnosticCenter>>(diagnosticcenter,HttpStatus.NOT_FOUND);
    }
    
 }

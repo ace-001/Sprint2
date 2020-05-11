@@ -22,7 +22,7 @@ public class TestCenterService
     {
     	return tcdao.findByCenterId(centerId);
     }*/
-    public Optional<List<TestCenter>> getTestCenter(int centerId)
+    public Optional<List<Integer>> getTestCenter(int centerId)
     {
     	return tcdao.findByCenterId(centerId);
     }

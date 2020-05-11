@@ -2,12 +2,20 @@ package com.cg.hcs.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
-public class TestCenter {
+@Table(name="test_center")
+@SequenceGenerator(name = "tcId",allocationSize = 1)
+public class TestCenter 
+{
     @Id
     @Column(name="tc_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "tcId")
     private int tcId;
 	@Column(name="test_id")
 	private Integer testId;

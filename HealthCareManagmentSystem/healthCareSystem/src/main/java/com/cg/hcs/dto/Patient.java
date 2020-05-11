@@ -3,17 +3,24 @@ package com.cg.hcs.dto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="patient")
+@SequenceGenerator(name="patId",initialValue = 34350,allocationSize = 1)
 public class Patient 
 {
 	@Id
 	@Column(name="patient_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "patId")
 	private Integer patientId;
 	@Column(name="patient_name")
 	private String patientName;
@@ -21,6 +28,7 @@ public class Patient
 	private Long mobileNo;
 	@Column(name="email")
 	private String email;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private Users user;

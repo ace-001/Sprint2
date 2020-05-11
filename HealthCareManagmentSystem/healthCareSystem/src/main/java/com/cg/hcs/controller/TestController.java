@@ -34,31 +34,41 @@ public class TestController
 	}
 	
 	@PostMapping(value="/addTest",consumes="application/json")
-	   public ResponseEntity<String> insertTest(@RequestBody()Test test)
-	   {
+	public ResponseEntity<String> insertTest(@RequestBody()Test test)
+	{
 		try
 		{
-		   String message="Test Inserted Successfully";
-		   if(testService.insertTest(test)==null)
-			   message="Test Insertion Failed";
-		   return new ResponseEntity<String>(message,HttpStatus.BAD_REQUEST);
-	   }
+			String message="Test Inserted Successfully";
+			if(testService.insertTest(test)==null)
+				message="Test Insertion Failed";
+			return new ResponseEntity<String>(message,HttpStatus.BAD_REQUEST);
+		}
 		catch(Exception ex)
 		{
-			 return new ResponseEntity<String>(ex.getMessage()+" Insertion Failed",HttpStatus.BAD_REQUEST);	
+			return new ResponseEntity<String>(ex.getMessage()+" Insertion Failed",HttpStatus.BAD_REQUEST);	
 		}
-	   }
-	@GetMapping("/getTests")
-	   public List<Test> getTests()
-	   {
-		   return testService.getTests();
-	   }
+	}
+	@GetMapping("/getTests")	
+	public List<Test> getTests()
+	{
+		return testService.getTests();
+	}
 	@GetMapping(value="/getTest/{testId}",produces="application/json")
-	   public ResponseEntity<Optional<Test>> getTestDetails(@PathVariable int testId)
-	   {
-	 	  Optional<Test> test =  testService.getTest(testId);
-	 	  if(test.isPresent())
-	 		  return new ResponseEntity<Optional<Test>>(test,HttpStatus.OK);
-	 	  return new ResponseEntity<Optional<Test>>(test,HttpStatus.NOT_FOUND);
-	   }
+	public ResponseEntity<Optional<Test>> getTestDetails(@PathVariable int testId)
+	{
+		Optional<Test> test =  testService.getTest(testId);
+		if(test.isPresent())
+			return new ResponseEntity<Optional<Test>>(test,HttpStatus.OK);
+		return new ResponseEntity<Optional<Test>>(test,HttpStatus.NOT_FOUND);
+	}
+
+	@GetMapping(value="/getTestsById/{testIds}",produces="application/json")
+	public ResponseEntity<List<Test>> getMultipleTestById(@PathVariable int testIds[])
+	{
+		List<Test> test =  testService.getTestById(testIds);
+		if(!test.isEmpty())
+			return new ResponseEntity<List<Test>>(test,HttpStatus.OK);
+		return new ResponseEntity<List<Test>>(test,HttpStatus.NOT_FOUND);
+	}
+
 }

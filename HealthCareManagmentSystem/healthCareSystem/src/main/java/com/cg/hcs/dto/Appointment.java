@@ -5,38 +5,48 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="appointment")
 public class Appointment {
 	@Id
 	@Column(name = "appointment_id")
-	private Integer appointmentId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long appointmentId;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private Users user;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "center_id")
-	private Diagnosticcenter center;
+	private DiagnosticCenter center;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id")
 	private Test test;
 	@Column(name="appointment_date")
     LocalDate appointmentDate;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
 	private Doctor doctor;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
 	private Patient patient;
 	
 	public Appointment() {}
 
-	public Appointment(Integer appointmentId, Users user, Diagnosticcenter center, Test test, LocalDate appointmentDate,
+	public Appointment(Long appointmentId, Users user, DiagnosticCenter center, Test test, LocalDate appointmentDate,
 			Doctor doctor, Patient patient) {
 		super();
 		this.appointmentId = appointmentId;
@@ -48,11 +58,11 @@ public class Appointment {
 		this.patient = patient;
 	}
 
-	public Integer getAppointmentId() {
+	public Long getAppointmentId() {
 		return appointmentId;
 	}
 
-	public void setAppointmentId(Integer appointmentId) {
+	public void setAppointmentId(Long appointmentId) {
 		this.appointmentId = appointmentId;
 	}
 
@@ -64,11 +74,11 @@ public class Appointment {
 		this.user = user;
 	}
 
-	public Diagnosticcenter getCenter() {
+	public DiagnosticCenter getCenter() {
 		return center;
 	}
 
-	public void setCenter(Diagnosticcenter center) {
+	public void setCenter(DiagnosticCenter center) {
 		this.center = center;
 	}
 

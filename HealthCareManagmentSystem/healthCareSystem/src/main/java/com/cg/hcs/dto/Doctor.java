@@ -3,26 +3,36 @@ package com.cg.hcs.dto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="doctor")
+@SequenceGenerator(name="docId",initialValue = 8989,allocationSize = 1)
 public class Doctor 
 {
 	@Id
 	@Column(name="doctor_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "docId")
 	private Integer doctorId;
 	@Column(name="doctor_name")
 	private String doctorName;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private Users user;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="center_id")
-	private Diagnosticcenter center;
+	private DiagnosticCenter center;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="test_id")
 	private Test test;
@@ -33,7 +43,7 @@ public class Doctor
 	
 	public Doctor() { }
 
-	public Doctor(Integer doctorId, String doctorName, Users user, Diagnosticcenter center, Test test,
+	public Doctor(Integer doctorId, String doctorName, Users user, DiagnosticCenter center, Test test,
 			String specialization, String degree) {
 		super();
 		this.doctorId = doctorId;
@@ -69,11 +79,11 @@ public class Doctor
 		this.user = user;
 	}
 
-	public Diagnosticcenter getCenter() {
+	public DiagnosticCenter getCenter() {
 		return center;
 	}
 
-	public void setCenter(Diagnosticcenter center) {
+	public void setCenter(DiagnosticCenter center) {
 		this.center = center;
 	}
 
